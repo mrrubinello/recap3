@@ -22,5 +22,5 @@ export function createCharacterCard(image, name, status, type, Occurrences) {
       </dl>
     </div>
   </li>`;
-  cardList.innerHTML = card;
+    cardList.innerHTML = card;
 }

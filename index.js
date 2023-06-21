@@ -1,6 +1,5 @@
 import { createCharacterCard } from "./components/card/card.js";
 
-/*
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
@@ -11,18 +10,37 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-const maxPage = 1;
+const maxPage = 42;
 const page = 1;
 const searchQuery = "";
-*/
+let currentPage = 1;
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 
-async function fetchCharacters() {
-  const url = "https://rickandmortyapi.com/api/character/";
+nextButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (currentPage >= 1 && currentPage <= maxPage) {
+    currentPage++;
+    cardContainer.innerHTML = "";
+    console.log(currentPage);
+    fetchCharacters(currentPage);
+  }
+});
 
-  const response = await fetch(url);
-  const data = await response.json();
+async function fetchCharacters(page) {
+  let url = "https://rickandmortyapi.com/api/character/";
+  //console.log(url);
+  if (page === 1) {
+    url;
+    console.log("ja");
+  } else {
+    url = "https://rickandmortyapi.com/api/character/?page=" + page;
+    console.log(url);
+  }
+
+  let response = await fetch(url);
+  let data = await response.json();
+
   //debugging
   // console.log(data.results[0]);
 
@@ -42,7 +60,7 @@ async function fetchCharacters() {
       });
     } else {
       //log error bad response
-      console.rerror("Bad response");
+      console.error("Bad response");
     }
   } catch (error) {
     //log error
