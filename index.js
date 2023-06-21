@@ -1,12 +1,6 @@
 import { createCharacterCard } from "./components/card/card.js";
-/*createCharacterCard(
-  "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  "peter",
-  "tod",
-  "mann",
-  98
-);
-const cardContainer = document.querySelector('[data-js="card-container"]');
+
+/*
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
@@ -21,3 +15,39 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 */
+
+const cardContainer = document.querySelector('[data-js="card-container"]');
+
+async function fetchCharacters() {
+  const url = "https://rickandmortyapi.com/api/character/";
+
+  const response = await fetch(url);
+  const data = await response.json();
+  //debugging
+  // console.log(data.results[0]);
+
+  try {
+    if (response.ok) {
+      cardContainer.innerHTML = "";
+      data.results.forEach((character) => {
+        //create card with data
+        //console.log(data.results);
+        createCharacterCard(
+          character.image,
+          character.name,
+          character.status,
+          character.type,
+          character.episode.length
+        );
+      });
+    } else {
+      //log error bad response
+      console.rerror("Bad response");
+    }
+  } catch (error) {
+    //log error
+    console.error(error);
+  }
+}
+
+fetchCharacters();
