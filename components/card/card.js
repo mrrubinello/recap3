@@ -1,6 +1,7 @@
 const cardList = document.querySelector('[data-js="card-container"]');
+let card = "";
 export function createCharacterCard(image, name, status, type, Occurrences) {
-  let card = `<li class="card">
+  card += `<li class="card">
     <div class="card__image-container">
       <img
         class="card__image"
