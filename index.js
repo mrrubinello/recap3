@@ -17,6 +17,14 @@ let currentPage = 1;
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 
+searchBar.addEventListener("submit", (event) => {
+  event.preventDefault();
+  console.log(event.target);
+  const searchInput = new FormData(event.target);
+  const searchData = Object.fromEntries(searchInput);
+  console.log(searchData.query);
+});
+
 nextButton.addEventListener("click", (event) => {
   event.preventDefault();
   cardContainer.innerHTML = "";
